@@ -1,0 +1,107 @@
+import fs from 'fs'
+import multer from 'multer'
+import csv from 'csv-parser';
+// Custom Multer storage engine
+const customStorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'draw-chart/');
+    },
+    filename: function(req, file, cb) {
+        // Check if the file already exists
+        const filePath = `draw-chart/${file.originalname}`;
+        fs.access(filePath, fs.constants.F_OK, (err) => {
+            if (!err) {
+                // File already exists
+                return cb(new Error('File already exists in the directory'), null);
+            } else {
+                // File doesn't exist, proceed with uploading
+                cb(null, file.originalname);
+            }
+        });
+    }
+});
+
+// Multer configuration with custom storage engine
+const upload = multer({ storage: customStorage }).single('file');
+class controller {
+    static uploadFile = async (req, res) => {
+        try {
+            // Handle the file upload using Multer
+            upload(req, res, (err) => {
+                if (err) {
+                    console.error('Error uploading file:', err);
+                    console.log("error cnsl", err)
+                    return res.status(400).json({ message: err.message });
+                }
+                
+                // File uploaded successfully
+                return res.status(200).json({ message: "File uploaded successfully." });
+            });
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            return res.status(500).json({ message: 'Failed to upload file', error });
+        }
+    }
+static deleteFile = (req,res)=>{
+
+    const { filename } = req.params;
+    const filePath = `draw-chart/${filename}.csv`;
+
+    // Check if the file exists
+    fs.stat(filePath, (err, stats) => {
+        if (err) {
+            console.error(err);
+            return res.status(404).json({ message: 'File not found' });
+        }
+
+        // File exists, proceed with deletion
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: 'Failed to delete file', err });
+            } else {
+                return res.status(200).json({ message: 'File deleted successfully' });
+            }
+        });
+    });
+}
+static drawChart = async (req, res) => {
+    try {
+        const { filename, columns } = req.params;
+        const filePath = `draw-chart/${filename}.csv`; // Assuming the file format is CSV
+        
+        // Check if the file exists
+        fs.access(filePath, fs.constants.F_OK, async (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(404).json({ message: 'File not found' });
+            }
+
+            // Read the CSV file and extract data from the specified columns
+            const data = [];
+            fs.createReadStream(filePath)
+                .pipe(csv())
+                .on('data', (row) => {
+                    const rowData = {};
+                    columns.forEach(col => {
+                        rowData[col] = row[col]; // Assuming column names match CSV headers
+                    });
+                    data.push(rowData);
+                })
+                .on('end', () => {
+                    // Convert data to JSON format suitable for Recharts
+                    // Format your data as required by Recharts
+
+                    // Render the SimpleLineChart using the data
+                    // Return the chart as a response or provide the chart data to the front-end
+                    return res.status(200).json({ message: 'Chart drawn successfully', data: formattedData });
+                });
+        });
+    } catch (error) {
+        console.error('Error drawing chart:', error);
+        return res.status(500).json({ message: 'Failed to draw chart', error });
+    }
+}
+}
+
+export default controller
