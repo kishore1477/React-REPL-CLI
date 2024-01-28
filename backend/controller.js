@@ -12,6 +12,7 @@ const customStorage = multer.diskStorage({
         const filePath = `draw-chart/${file.originalname}`;
         console.log("filePath",filePath)
         fs.access(filePath, fs.constants.F_OK, (err) => {
+            console.log("errr r",!err)
             if (!err) {
                 // File already exists
                 return cb(new Error('File already exists in the directory'), null);
@@ -35,7 +36,7 @@ class controller {
             // console.log("req f",req)
             // Handle the file upload using Multer
             upload(req, res, (err) => {
-    
+    console.log("error b", !err)
                 if (err) {
                     console.error('Error uploading file:', err);
                     console.log("error cnsl", err)
