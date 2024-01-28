@@ -12,7 +12,7 @@ const Help = () => {
           desc:"Display information about the application"
         },
         {
-          name:"fetch-api [coin]", 
+          name:"fetch-price [coin]", 
           desc:"Fetch data for a specified cryptocurrency",
         },
         {
