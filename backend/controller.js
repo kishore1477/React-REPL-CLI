@@ -39,7 +39,6 @@ class controller {
                     console.log("error cnsl", err)
                     return res.status(400).json({ message: err.message });
                 }
-                
                 // File uploaded successfully
                 return res.status(200).json({ message: "File uploaded successfully." });
             });
@@ -49,17 +48,14 @@ class controller {
         }
     }
 static deleteFile = (req,res)=>{
-
     const { filename } = req.params;
     const filePath = `draw-chart/${filename}.csv`;
-
     // Check if the file exists
     fs.stat(filePath, (err, stats) => {
         if (err) {
             console.error(err);
             return res.status(404).json({ message: 'File not found' });
         }
-
         // File exists, proceed with deletion
         fs.unlink(filePath, (err) => {
             if (err) {
@@ -97,11 +93,6 @@ static drawChart = async (req, res) => {
                     data.push(rowData);
                 })
                 .on('end', () => {
-                    // Convert data to JSON format suitable for Recharts
-                    // Format your data as required by Recharts
-
-                    // Render the SimpleLineChart using the data
-                    // Return the chart as a response or provide the chart data to the front-end
                     return res.status(200).json({ message: 'Chart drawn successfully', data });
                 });
         });
