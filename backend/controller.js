@@ -39,7 +39,7 @@ class controller {
                 if (err) {
                     console.error('Error uploading file:', err);
                     console.log("error cnsl", err)
-                    return res.status(400).json({ message: err.message });
+                    return res.status(400).json({ message: err.message ,err});
                 }
                 // File uploaded successfully
                 return res.status(200).json({ message: "File uploaded successfully." });
