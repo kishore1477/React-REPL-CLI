@@ -67,7 +67,9 @@ static deleteFile = (req,res)=>{
 }
 static drawChart = async (req, res) => {
     try {
-        const { filename, columns } = req.params;
+        const { filename, columns } = req.body;
+        console.log("filename",filename)
+        console.log("columns",columns)
         const filePath = `draw-chart/${filename}.csv`; // Assuming the file format is CSV
         
         // Check if the file exists
@@ -94,7 +96,7 @@ static drawChart = async (req, res) => {
 
                     // Render the SimpleLineChart using the data
                     // Return the chart as a response or provide the chart data to the front-end
-                    return res.status(200).json({ message: 'Chart drawn successfully', data: formattedData });
+                    return res.status(200).json({ message: 'Chart drawn successfully', data });
                 });
         });
     } catch (error) {
