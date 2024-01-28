@@ -4,6 +4,7 @@ import csv from 'csv-parser';
 // Custom Multer storage engine
 const customStorage = multer.diskStorage({
     destination: function(req, file, cb) {
+        
         cb(null, 'draw-chart/');
     },
     filename: function(req, file, cb) {
@@ -14,6 +15,10 @@ const customStorage = multer.diskStorage({
                 // File already exists
                 return cb(new Error('File already exists in the directory'), null);
             } else {
+                console.log("re in deswc", file)
+                if(file?.mimetype !=='text/csv'){
+                    return cb(new Error('Only CSV files are allowed'), null);
+                }
                 // File doesn't exist, proceed with uploading
                 cb(null, file.originalname);
             }
@@ -26,6 +31,7 @@ const upload = multer({ storage: customStorage }).single('file');
 class controller {
     static uploadFile = async (req, res) => {
         try {
+            // console.log("req f",req)
             // Handle the file upload using Multer
             upload(req, res, (err) => {
                 if (err) {

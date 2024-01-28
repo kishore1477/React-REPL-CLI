@@ -2,7 +2,7 @@ import axios from 'axios'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import Help from './Help';
 import About from './About';
-
+const baseURl = process.env.REACT_APP_Backend_url
 const commands = {
     help: <Help/>,
    
@@ -68,7 +68,7 @@ const commands = {
             if (file && file.name.endsWith('.csv')) {
               resolve(file);
             } else {
-              reject(new Error("No file selected"));
+              reject(new Error("No file selected, Make sure that your selecting only csv file"));
             }
           });
           input.click();
@@ -82,7 +82,7 @@ const commands = {
         formData.append('file', file);
 
         // Upload the file using Axios
-        const response = await axios.post('https://5000-kishore1477-merncli-tvqvbg9kf5v.ws-us107.gitpod.io/api/upload', formData, {
+        const response = await axios.post(`${baseURl}/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -120,7 +120,7 @@ const commands = {
         const data = {
           filename, columns
         }
-        const response = await axios.post(`https://5000-kishore1477-merncli-tvqvbg9kf5v.ws-us107.gitpod.io/api/drawChart`, data);
+        const response = await axios.post(`${baseURl}/drawChart`, data);
         console.log('response of drawchart', response)
         const chartData = response?.data?.data
         if (response?.status === 200) {
@@ -161,7 +161,7 @@ const commands = {
     delete: async (file) => {
       try {
         // Fetch price from API using Axios
-        const response = await axios.delete(`https://5000-kishore1477-merncli-tvqvbg9kf5v.ws-us107.gitpod.io/api/delete/${file}`);
+        const response = await axios.delete(`${baseURl}/delete/${file}`);
         console.log('response', response)
         if (response?.status === 200) {
           return (
