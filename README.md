@@ -7,4 +7,5 @@ cd backend ->npm run start or npm run dev
 cd frontend -> npm run start  <br>
 <b> Step #03 </b>  <br>
 change the backend url in .env and .env.local  as REACT_APP_Backend_url = 'paste here'
-after running just execute help command
+after running just execute help command  <br>
+<b> docker image : </b> docker pull kishorejaipal/react-repl-cli:v1.0
