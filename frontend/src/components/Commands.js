@@ -102,7 +102,7 @@ const commands = {
           );
         }
       } catch (error) {
-        // console.error('Error uploading file:', error);
+        console.error('Error uploading file:', error);
         return <div>
           <p>{error?.response?.data?.message}</p>
           <p>Error uploading file: ${error.message}</p>

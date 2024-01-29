@@ -6,7 +6,14 @@ import dotenv from 'dotenv'
 const app = express()
 dotenv.config()
 app.use(express.json())
-app.use(cors())
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) 
+
 app.use('/api',router)
 const port = process.env.PORT|| 5000
 app.get('/', (req, res) => {
