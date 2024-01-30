@@ -129,6 +129,9 @@ const commands = {
           // Exclude the index key if it exists
           const dataKeys = keys.filter(key => key !== 'index');
           return (
+            <div>
+             <p>Drawing chart based on file {response?.data?.filename}</p> 
+           <p>{response?.data?.message}</p>
             <div style={{ width: '100%', marginTop: "18px" }}>
               <LineChart width={730} height={350} data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid stroke="#ccc" />
@@ -140,6 +143,7 @@ const commands = {
                   <Line key={index} type="monotone" dataKey={key} stroke={getRandomColor()} />
                 ))}
               </LineChart>
+            </div>
             </div>
           );
         }

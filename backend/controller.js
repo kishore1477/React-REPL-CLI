@@ -40,17 +40,18 @@ const upload = multer({ storage: customStorage }).single('file');
 class controller {
     static uploadFile = async (req, res) => {
         try {
-
             // Handle the file upload using Multer
             upload(req, res, (err) => {
                 console.log("error b", !err)
+                console.log("|req uplod", req.file)
                 if (err) {
                     console.error('Error uploading file:', err);
                     console.log("error cnsl", err)
                     return res.status(400).json({ message: err.message, err });
                 }
                 // File uploaded successfully
-                return res.status(200).json({ message: "File uploaded successfully." });
+                const fileName = req?.file?.originalname
+                return res.status(200).json({ message: `${fileName} File uploaded successfully.`, });
             });
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -72,7 +73,7 @@ class controller {
                     console.error(err);
                     return res.status(500).json({ message: 'Failed to delete file', err });
                 } else {
-                    return res.status(200).json({ message: 'File deleted successfully' });
+                    return res.status(200).json({ message: `${filename} File deleted successfully` });
                 }
             });
         });
@@ -103,7 +104,7 @@ class controller {
                         data.push(rowData);
                     })
                     .on('end', () => {
-                        return res.status(200).json({ message: 'Chart drawn successfully', data });
+                        return res.status(200).json({ message: 'Chart drawn successfully', data, filename });
                     });
             });
         } catch (error) {
