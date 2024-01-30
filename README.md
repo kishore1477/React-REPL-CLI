@@ -9,7 +9,16 @@ cd frontend -> npm run start  <br>
 change the backend url in .env.local  as REACT_APP_Backend_url = 'yourRunningBackendURL/api' By default is  http://localhost:5000/api <br>
 again run npm run start inside frontend  directory <br>
 after running just execute help command   in terminal to show available commands.<br>
+<!-- <b><span style="color:red;">Important Note:</span> </b><br> -->
+```diff
+- Important Note:
+
+```
+File name and coloumns  must be equal to the  the provide file
+
 <b> docker image : </b> docker pull kishorejaipal/react-repl-cli:v1.1
+
+
 <h1>Demo Images :</h1>
 <b>Result of help,about and fetch-price commands.<b> <br>
 ![Alt Text](https://github.com/kishore1477/React-REPL-CLI/raw/main/OutputImages/help-about-fetchPriceBTC.PNG)
