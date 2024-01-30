@@ -12,9 +12,9 @@ after running just execute help command   in terminal to show available commands
 <!-- <b><span style="color:red;">Important Note:</span> </b><br> -->
 ```diff
 - Important Note:
+-File name and coloumns  must be equal to the  the provide file
 
 ```
-File name and coloumns  must be equal to the  the provide file
 
 <b> docker image : </b> docker pull kishorejaipal/react-repl-cli:v1.1
 
