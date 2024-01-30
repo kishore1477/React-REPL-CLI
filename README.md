@@ -12,6 +12,6 @@ after running just execute help command   in terminal to show available commands
 <b> docker image : </b> docker pull kishorejaipal/react-repl-cli:v1.1
 <h1>Demo Images :</h1>
 <b>Result of help,about and fetch-price commands.<b> <br>
-![Alt Text](./OutputImages/help-about-fetchPriceBTC.PNG) <br>
+![Alt Text](https://github.com/kishore1477/React-REPL-CLI/blob/main/OutputImages/help-about-fetchPriceBTC.PNG) <br>
 <b>Result of upload,draw and delete commands.<b> <br>
-![Alt Text](./OutputImages/upload-draw-delete.PNG)
+![Alt Text](https://github.com/kishore1477/React-REPL-CLI/blob/main/OutputImages/upload-draw-delete.PNG)
